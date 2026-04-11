@@ -347,64 +347,6 @@ aside.open {
   background-color: #9c6c51;   
   transform: scale(1.05);      
 }
-.modal {
-  display: none; 
-  position: fixed;
-  z-index: 1000; 
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.6); 
-}
-
-.modal-content {
-  background: linear-gradient(135deg, #e8f5e9, #c8e6c9); 
-  margin: 15% auto;
-  padding: 20px;
-  border-radius: 12px;
-  width: 320px;
-  text-align: center;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
-}
-
-.modal-content h2 {
-  margin-top: 0;
-  text-align: center;
-  color: #333;
-}
-
-.modal-content label {
-  display: block;
-  margin: 10px 0 5px;
-  font-weight: bold;
-}
-
-.modal-content input {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-.modal-content button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin: 5px;
-}
-
-.modal-content button[type="submit"] {
-  background-color: #f0b379;
-  color: white;
-}
-
-.modal-content button[type="button"] {
-  background-color: #ccc;
-}
-
   </style>
 </head>
 <body>
@@ -454,22 +396,6 @@ aside.open {
   </div>
 </main>
 
-<div id="loginForm" class="modal">
-  <div class="modal-content">
-    <form id="credentialsForm">
-      <h2>Login</h2>
-      <label for="username">Username or Email:</label>
-      <input type="text" id="username" name="username" required><br><br>
-
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required><br><br>
-
-      <button type="submit">Submit</button>
-      <button type="button" onclick="closeLogin()">Cancel</button>
-    </form>
-  </div>
-</div>
-
 <aside id="favoritesAside">
   <h2>My Favorites</h2>
   <div id="favoritesList"></div>
@@ -477,19 +403,77 @@ aside.open {
 </aside>
   <footer>© D'Farm--Soft on You, Gentle on Earth</footer>
 
-<script>
-  const products = [];
-  let favorites = [];
-  let currentFilteredProducts = [];
-  let loggedIn = false;
+<script type="module">
 
-  const productList = document.querySelector("#productList");
-  const favoritesList = document.querySelector("#favoritesList");
-  const searchBar = document.querySelector("#searchBar");
-  const favoritesAside = document.querySelector("#favoritesAside");
-  const reviewText = document.querySelector("#reviewText");
-  const reviewsSection = document.querySelector("#reviewsSection");
-  const loginBtn = document.querySelector("#loginBtn");
+    import firebaseConfig from './firebaseConfig.js';
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged,
+      signInAnonymously
+    } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const products = [];
+    let favorites = [];
+    let currentFilteredProducts = [];
+
+    const productList = document.querySelector("#productList");
+    const favoritesList = document.querySelector("#favoritesList");
+    const searchBar = document.querySelector("#searchBar");
+    const favoritesAside = document.querySelector("#favoritesAside");
+    const reviewText = document.querySelector("#reviewText");
+    const reviewsSection = document.querySelector("#reviewsSection");
+    const loginBtn = document.querySelector("#loginBtn");
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        loginBtn.textContent = "Logout";
+        console.log("Logged in as:", user.isAnonymous ? "Guest" : user.email);
+      } else {
+        loginBtn.textContent = "Login";
+        console.log("User is logged out");
+      }
+    });
+
+    window.toggleLogin = async () => {
+      if (auth.currentUser) {
+
+        try {
+          await signOut(auth);
+          alert("Logged out successfully!");
+        } catch (error) {
+          console.error("Logout Error:", error);
+        }
+      } else {
+
+        const choice = prompt("Type '1' for Email or '2' for Guest:");
+
+        if (choice === '1') {
+          const email = prompt("Enter email:");
+          const password = prompt("Enter password:");
+          if (email && password) {
+            try {
+              await signInWithEmailAndPassword(auth, email, password);
+              alert("Welcome Bob!");
+            } catch (error) {
+              alert("Login Failed: " + error.message);
+            }
+          }
+        } else if (choice === '2') {
+          try {
+            await signInAnonymously(auth);
+            alert("Logged in as Guest!");
+          } catch (error) {
+            alert("Guest Login Failed: " + error.message);
+          }
+        }
+      }
+    };
 
   async function getProduct() {
     try {
@@ -597,34 +581,7 @@ aside.open {
     favoritesAside.classList.toggle("open");
   }
 
-  function toggleLogin() {
-  const form = document.getElementById("loginForm");
-  form.style.display = "block"; // show modal
-}
-
-function closeLogin() {
-  document.getElementById("loginForm").style.display = "none"; // hide modal
-}
-document.addEventListener("DOMContentLoaded", () => {
-  const credentialsForm = document.getElementById("credentialsForm");
-  if (credentialsForm) {
-    credentialsForm.addEventListener("submit", function(event) {
-      event.preventDefault();
-
-      const username = document.getElementById("username").value.trim();
-      const password = document.getElementById("password").value.trim();
-
-      if ((username === "bob" || username === "bob@mail.com") && password === "bobpass") {
-        loggedIn = true;
-        loginBtn.textContent = "Logout";
-        alert("Login successful!");
-        document.getElementById("loginForm").style.display = "none";
-      } else {
-        alert("Invalid credentials. Try again.");
-      }
-    });
-  }
-});
+ 
 
   function addReview() {
     const text = reviewText.value.trim();
