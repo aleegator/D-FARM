@@ -344,9 +344,11 @@ aside.open {
 }
 
 #clearFavoritesBtn:hover {
-  background-color: #9c6c51;   
-  transform: scale(1.05);      
+  background-color: #9c6c51;   /* darker coral-brown on hover */
+  transform: scale(1.05);      /* subtle grow effect */
 }
+
+
   </style>
 </head>
 <body>
@@ -402,84 +404,91 @@ aside.open {
  
 </aside>
   <footer>© D'Farm--Soft on You, Gentle on Earth</footer>
-
 <script type="module">
+  import firebaseConfig from './firebaseConfig.js';
 
-    import firebaseConfig from './firebaseConfig.js';
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import {
-      getAuth,
-      signInWithEmailAndPassword,
-      signOut,
-      onAuthStateChanged,
-      signInAnonymously
-    } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+  import { 
+    getAuth, 
+    signInWithEmailAndPassword, 
+    signOut, 
+    onAuthStateChanged,
+    signInAnonymously 
+  } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
 
-    const products = [];
-    let favorites = [];
-    let currentFilteredProducts = [];
+  // 3. Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
-    const productList = document.querySelector("#productList");
-    const favoritesList = document.querySelector("#favoritesList");
-    const searchBar = document.querySelector("#searchBar");
-    const favoritesAside = document.querySelector("#favoritesAside");
-    const reviewText = document.querySelector("#reviewText");
-    const reviewsSection = document.querySelector("#reviewsSection");
-    const loginBtn = document.querySelector("#loginBtn");
+  // --- EXISTING APP LOGIC (Kept exactly as you had it) ---
+  const products = [];
+  let favorites = [];
+  let currentFilteredProducts = [];
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        loginBtn.textContent = "Logout";
-        console.log("Logged in as:", user.isAnonymous ? "Guest" : user.email);
-      } else {
-        loginBtn.textContent = "Login";
-        console.log("User is logged out");
+  const productList = document.querySelector("#productList");
+  const favoritesList = document.querySelector("#favoritesList");
+  const searchBar = document.querySelector("#searchBar");
+  const favoritesAside = document.querySelector("#favoritesAside");
+  const reviewText = document.querySelector("#reviewText");
+  const reviewsSection = document.querySelector("#reviewsSection");
+  const loginBtn = document.querySelector("#loginBtn");
+
+  // --- NEW AUTHENTICATION LOGIC ---
+
+  // Listen for login/logout changes to update the button text automatically
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      loginBtn.textContent = "Logout";
+      console.log("Logged in as:", user.isAnonymous ? "Guest" : user.email);
+    } else {
+      loginBtn.textContent = "Login";
+      console.log("User is logged out");
+    }
+  });
+
+  // Replace your old toggleLogin function
+  window.toggleLogin = async () => {
+    if (auth.currentUser) {
+      // If already logged in, sign out
+      try {
+        await signOut(auth);
+        alert("Logged out successfully!");
+      } catch (error) {
+        console.error("Logout Error:", error);
       }
-    });
-
-    window.toggleLogin = async () => {
-      if (auth.currentUser) {
-
-        try {
-          await signOut(auth);
-          alert("Logged out successfully!");
-        } catch (error) {
-          console.error("Logout Error:", error);
-        }
-      } else {
-
-        const choice = prompt("Type '1' for Email or '2' for Guest:");
-
-        if (choice === '1') {
-          const email = prompt("Enter email:");
-          const password = prompt("Enter password:");
-          if (email && password) {
-            try {
-              await signInWithEmailAndPassword(auth, email, password);
-              alert("Welcome Bob!");
-            } catch (error) {
-              alert("Login Failed: " + error.message);
-            }
-          }
-        } else if (choice === '2') {
+    } else {
+      // If logged out, ask for credentials
+      const choice = prompt("Type '1' for Bob (Email/Pass) or '2' for Guest (Anonymous):");
+      
+      if (choice === '1') {
+        const email = prompt("Enter email (e.g., bob@example.com):");
+        const password = prompt("Enter password:");
+        if (email && password) {
           try {
-            await signInAnonymously(auth);
-            alert("Logged in as Guest!");
+            await signInWithEmailAndPassword(auth, email, password);
+            alert("Welcome back, Bob!");
           } catch (error) {
-            alert("Guest Login Failed: " + error.message);
+            alert("Login Failed: " + error.message);
           }
         }
+      } else if (choice === '2') {
+        try {
+          await signInAnonymously(auth);
+          alert("Logged in as Guest!");
+        } catch (error) {
+          alert("Guest Login Failed: " + error.message);
+        }
       }
-    };
+    }
+  };
+
+  // --- REST OF YOUR FUNCTIONS (Untouched) ---
 
   async function getProduct() {
     try {
       const response = await fetch('https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Clothing.json');
       if (!response.ok) throw new Error("Network response was not ok");
-      
       const data = await response.json();
       products.push(...data.Clothes);
       currentFilteredProducts = [...products];
@@ -495,7 +504,6 @@ aside.open {
     items.forEach(item => {
       const isFav = favorites.some(f => f.Name === item.Name);
       const imgPath = item.ImageURL || 'https://via.placeholder.com/150';
-
       const div = document.createElement("div");
       div.className = "product";
       div.innerHTML = `
@@ -529,16 +537,15 @@ aside.open {
       `;
       favoritesList.appendChild(div);
     });
-
-  
     const clearBtn = document.createElement("button");
     clearBtn.id = "clearFavoritesBtn";
     clearBtn.textContent = "Clear All";
-    clearBtn.onclick = clearFavorites;
+    clearBtn.onclick = window.clearFavorites;
     favoritesList.appendChild(clearBtn);
   }
 
-  function toggleFavorite(name) {
+  // Set functions to window so they work with HTML onclick attributes
+  window.toggleFavorite = (name) => {
     const product = products.find(p => p.Name === name);
     const index = favorites.findIndex(f => f.Name === name);
     if (index > -1) {
@@ -548,25 +555,41 @@ aside.open {
     }
     displayFavorites();
     displayProducts(currentFilteredProducts);
-  }
+  };
 
-  function clearFavorites() {
+  window.clearFavorites = () => {
     if (confirm("Are you sure you want to clear all favorites?")) {
       favorites = [];
       displayFavorites();
       displayProducts(currentFilteredProducts);
     }
-  }
+  };
 
-  function sortByMaterial(material) {
+  window.sortByMaterial = (material) => {
     currentFilteredProducts = products.filter(p => p.Material.toLowerCase() === material.toLowerCase());
     displayProducts(currentFilteredProducts);
-  }
+  };
 
-  function showAllProducts() {
+  window.showAllProducts = () => {
     currentFilteredProducts = [...products];
     displayProducts(currentFilteredProducts);
-  }
+  };
+
+  window.toggleAside = () => {
+    favoritesAside.classList.toggle("open");
+  };
+
+  window.addReview = () => {
+    const text = reviewText.value.trim();
+    if (text) {
+      const div = document.createElement("div");
+      div.className = "review";
+      div.innerHTML = `<strong>You:</strong> ${text}`;
+      const inputContainer = document.querySelector(".review-input");
+      reviewsSection.insertBefore(div, inputContainer);
+      reviewText.value = "";
+    }
+  };
 
   searchBar.addEventListener("input", (e) => {
     const query = e.target.value.toLowerCase();
@@ -577,32 +600,13 @@ aside.open {
     displayProducts(currentFilteredProducts);
   });
 
-  function toggleAside() {
-    favoritesAside.classList.toggle("open");
-  }
-
- 
-
-  function addReview() {
-    const text = reviewText.value.trim();
-    if (text) {
-      const div = document.createElement("div");
-      div.className = "review";
-      div.innerHTML = `<strong>You:</strong> ${text}`;
-      const inputContainer = document.querySelector(".review-input");
-      reviewsSection.insertBefore(div, inputContainer);
-      reviewText.value = "";
-    }
-  }
-
   reviewText.addEventListener("keypress", (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      addReview();
+      window.addReview();
     }
   });
 
   getProduct();
   displayFavorites();
 </script>
-
