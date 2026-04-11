@@ -344,10 +344,66 @@ aside.open {
 }
 
 #clearFavoritesBtn:hover {
-  background-color: #9c6c51;   /* darker coral-brown on hover */
-  transform: scale(1.05);      /* subtle grow effect */
+  background-color: #9c6c51;   
+  transform: scale(1.05);      
+}
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1000; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6); 
 }
 
+.modal-content {
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9); 
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  text-align: center;
+  color: #333;
+}
+
+.modal-content label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.modal-content button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.modal-content button[type="submit"] {
+  background-color: #f0b379;
+  color: white;
+}
+
+.modal-content button[type="button"] {
+  background-color: #ccc;
+}
 
   </style>
 </head>
@@ -398,16 +454,20 @@ aside.open {
   </div>
 </main>
 
-<div id="loginForm" style="display:none;">
-  <form id="credentialsForm">
-    <label for="username">Username or Email:</label>
-    <input type="text" id="username" name="username" required><br><br>
+<div id="loginForm" class="modal">
+  <div class="modal-content">
+    <form id="credentialsForm">
+      <h2>Login</h2>
+      <label for="username">Username or Email:</label>
+      <input type="text" id="username" name="username" required><br><br>
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br><br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required><br><br>
 
-    <button type="submit">Submit</button>
-  </form>
+      <button type="submit">Submit</button>
+      <button type="button" onclick="closeLogin()">Cancel</button>
+    </form>
+  </div>
 </div>
 
 <aside id="favoritesAside">
@@ -539,11 +599,11 @@ aside.open {
 
   function toggleLogin() {
   const form = document.getElementById("loginForm");
-  if (form.style.display === "none" || form.style.display === "") {
-    form.style.display = "block";   
-  } else {
-    form.style.display = "none";    
-  }
+  form.style.display = "block"; // show modal
+}
+
+function closeLogin() {
+  document.getElementById("loginForm").style.display = "none"; // hide modal
 }
 document.addEventListener("DOMContentLoaded", () => {
   const credentialsForm = document.getElementById("credentialsForm");
