@@ -1,0 +1,172 @@
+{
+  "Clothes": [
+    {
+      "ID": 1,
+      "Name": "Lavender Cotton Crew Tee",
+      "Price": 300,
+      "Material": "Cotton",
+      "Type": "t-shirt",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Lavender%20Cotton%20Crew%20Tee.webp"
+    },
+    {
+      "ID": 2,
+      "Name": "Black Cotton Crew Tee",
+      "Price": 300,
+      "Material": "Cotton",
+      "Type": "t-shirt",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Black%20Cotton%20Crew%20Tee.webp"
+    },
+    {
+      "ID": 3,
+      "Name": "Grey Cotton Crew Tee",
+      "Price": 300,
+      "Material": "Cotton",
+      "Type": "t-shirt",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Grey%20Cotton%20Crew%20Tee.webp"
+    },
+    {
+      "ID": 4,
+      "Name": "Lime Green 3/4 Cotton Tee",
+      "Price": 300,
+      "Material": "Cotton",
+      "Type": "t-shirt",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Lime%20Green%20ThreeQuarter%20Cotton%20Tee.webp"
+    },
+    {
+      "ID": 5,
+      "Name": "Bright Blue 3/4 Cotton Tee",
+      "Price": 300,
+      "Material": "Cotton",
+      "Type": "t-shirt",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Bright%20Blue%20ThreeQuarter%20Cotton%20Tee.webp"
+    },
+    {
+      "ID": 6,
+      "Name": "Bright Red 3/4 Cotton Tee",
+      "Price": 300,
+      "Material": "Cotton",
+      "Type": "t-shirt",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Bright%20Red%20ThreeQuarter%20Cotton%20Tee.webp"
+    },
+    {
+      "ID": 7,
+      "Name": "Black 3/4 Cotton Tee",
+      "Price": 300,
+      "Material": "Cotton",
+      "Type": "t-shirt",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Black%20ThreeQuarter%20Cotton%20Tee.webp"
+    },
+    {
+      "ID": 8,
+      "Name": "Purple, Green, Yellow Striped Sweater",
+      "Price": 500,
+      "Material": "Wool",
+      "Type": "sweater",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Purple%2CGreen%2CYellow%20Striped%20Sweater.webp"
+    },
+    {
+      "ID": 9,
+      "Name": "Green Striped Sweater",
+      "Price": 500,
+      "Material": "Wool",
+      "Type": "sweater",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Green%20Striped%20Sweater.webp"
+    },
+    {
+      "ID": 10,
+      "Name": "Grey Knitted Wool Sweater",
+      "Price": 500,
+      "Material": "Wool",
+      "Type": "sweater",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Grey%20Knitted%20Wool%20Sweater.webp"
+    },
+    {
+      "ID": 11,
+      "Name": "Blended Pink Wool Sweater",
+      "Price": 500,
+      "Material": "Wool",
+      "Type": "sweater",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Blended%20Pink%20Wool%20Sweater.webp"
+    },
+    {
+      "ID": 12,
+      "Name": "Multicolour Wool Sweater",
+      "Price": 500,
+      "Material": "Wool",
+      "Type": "sweater",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Multicolour%20Wool%20Sweater.webp"
+    },
+    {
+      "ID": 13,
+      "Name": "Light Blue Wool Sweater",
+      "Price": 500,
+      "Material": "Wool",
+      "Type": "sweater",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Light%20Blue%20Wool%20Sweater.webp"
+    },
+    {
+      "ID": 14,
+      "Name": "Lime Green Mesh Wool Sweater",
+      "Price": 500,
+      "Material": "Wool",
+      "Type": "sweater",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Lime%20Green%20Mesh%20Wool%20Sweater.webp"
+    },
+    {
+      "ID": 15,
+      "Name": "Navy Blue Mesh Wool Sweater",
+      "Price": 500,
+      "Material": "Wool",
+      "Type": "sweater",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Navy%20Blue%20Mesh%20Wool%20Sweater.webp"
+    },
+    {
+      "ID": 16,
+      "Name": "Black Mesh Wool Sweater",
+      "Price": 500,
+      "Material": "Wool",
+      "Type": "sweater",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Black%20Mesh%20Wool%20Sweater.webp"
+    },
+    {
+      "ID": 17,
+      "Name": "White Linen Blouse Shirt",
+      "Price": 550,
+      "Material": "Linen",
+      "Type": "Blouse",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/White%20Linen%20Blouse%20Shirt.webp"
+    },
+    {
+      "ID": 18,
+      "Name": "Bright Blue Linen Blouse Shirt",
+      "Price": 550,
+      "Material": "Linen",
+      "Type": "Blouse",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Bright%20Blue%20Linen%20Blouse%20Shirt.webp"
+    },
+    {
+      "ID": 19,
+      "Name": "Black Linen Blouse Shirt",
+      "Price": 550,
+      "Material": "Linen",
+      "Type": "Blouse",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Black%20Linen%20Blouse%20Shirt.webp"
+    },
+    {
+      "ID": 20,
+      "Name": "Black 3/4 Linen Blouse Shirt",
+      "Price": 400,
+      "Material": "Linen",
+      "Type": "Blouse",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Black%20ThreeQuarter%20Linen%20Blouse%20Shirt.webp"
+    },
+    {
+      "ID": 21,
+      "Name": "Bright Blue 3/4 Linen Blouse Shirt",
+      "Price": 400,
+      "Material": "Linen",
+      "Type": "Blouse",
+      "ImageURL": "https://raw.githubusercontent.com/aleegator/D-FARM/refs/heads/api-shenanigans/Shirts/Bright%20Blue%20ThreeQuarter%20Linen%20Blouse%20Shirt.webp"
+    }
+  ]
+}
