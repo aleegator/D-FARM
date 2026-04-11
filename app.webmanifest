@@ -1,0 +1,20 @@
+{
+  "short_name": "DFarm",
+  "name": "D'Farm Organic Clothing",
+  "icons": [
+    {
+      "src": "(image directory/url)",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "(image directory/url)",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/index.html",
+  "background_color": "#fcece9",
+  "display": "standalone",
+  "theme_color": "#e2b098"
+}
