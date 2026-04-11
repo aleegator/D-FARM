@@ -417,11 +417,9 @@ aside.open {
   } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
 
-  // 3. Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
-  // --- EXISTING APP LOGIC (Kept exactly as you had it) ---
   const products = [];
   let favorites = [];
   let currentFilteredProducts = [];
@@ -434,9 +432,6 @@ aside.open {
   const reviewsSection = document.querySelector("#reviewsSection");
   const loginBtn = document.querySelector("#loginBtn");
 
-  // --- NEW AUTHENTICATION LOGIC ---
-
-  // Listen for login/logout changes to update the button text automatically
   onAuthStateChanged(auth, (user) => {
     if (user) {
       loginBtn.textContent = "Logout";
@@ -447,7 +442,6 @@ aside.open {
     }
   });
 
-  // Replace your old toggleLogin function
   window.toggleLogin = async () => {
     if (auth.currentUser) {
       // If already logged in, sign out
@@ -459,7 +453,7 @@ aside.open {
       }
     } else {
       // If logged out, ask for credentials
-      const choice = prompt("Type '1' for Bob (Email/Pass) or '2' for Guest (Anonymous):");
+      const choice = prompt("Type '1' for Email or '2' for Guest:");
       
       if (choice === '1') {
         const email = prompt("Enter email (e.g., bob@example.com):");
@@ -482,8 +476,6 @@ aside.open {
       }
     }
   };
-
-  // --- REST OF YOUR FUNCTIONS (Untouched) ---
 
   async function getProduct() {
     try {
@@ -544,7 +536,6 @@ aside.open {
     favoritesList.appendChild(clearBtn);
   }
 
-  // Set functions to window so they work with HTML onclick attributes
   window.toggleFavorite = (name) => {
     const product = products.find(p => p.Name === name);
     const index = favorites.findIndex(f => f.Name === name);
