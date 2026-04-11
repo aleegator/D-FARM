@@ -416,6 +416,7 @@ aside.open {
  
 </aside>
   <footer>© D'Farm--Soft on You, Gentle on Earth</footer>
+
 <script>
   const products = [];
   let favorites = [];
@@ -537,9 +538,30 @@ aside.open {
   }
 
   function toggleLogin() {
-    loggedIn = !loggedIn;
-    loginBtn.textContent = loggedIn ? "Logout" : "Login";
+  const form = document.getElementById("loginForm");
+  form.style.display = (form.style.display === "") ? "block" : "none";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const credentialsForm = document.getElementById("credentialsForm");
+  if (credentialsForm) {
+    credentialsForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if ((username === "bob" || username === "bob@mail.com") && password === "bobpass") {
+        loggedIn = true;
+        loginBtn.textContent = "Logout";
+        alert("Login successful!");
+        document.getElementById("loginForm").style.display = "none";
+      } else {
+        alert("Invalid credentials. Try again.");
+      }
+    });
   }
+});
 
   function addReview() {
     const text = reviewText.value.trim();
