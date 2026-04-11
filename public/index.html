@@ -456,12 +456,12 @@ aside.open {
       const choice = prompt("Type '1' for Email or '2' for Guest:");
       
       if (choice === '1') {
-        const email = prompt("Enter email (e.g., bob@example.com):");
+        const email = prompt("Enter email:");
         const password = prompt("Enter password:");
         if (email && password) {
           try {
             await signInWithEmailAndPassword(auth, email, password);
-            alert("Welcome back, Bob!");
+            alert("Welcome Bob!");
           } catch (error) {
             alert("Login Failed: " + error.message);
           }
