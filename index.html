@@ -396,11 +396,19 @@ aside.open {
       <button onclick="addReview()">Submit</button>
     </div>
   </div>
-  <div id="loginForm" style="display:none;">
+</main>
+
+<div id="loginForm" style="display:none;">
   <form id="credentialsForm">
     <label for="username">Username or Email:</label>
     <input type="text" id="username" name="username" required><br><br>
-</main>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
 
 <aside id="favoritesAside">
   <h2>My Favorites</h2>
