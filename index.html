@@ -539,9 +539,12 @@ aside.open {
 
   function toggleLogin() {
   const form = document.getElementById("loginForm");
-  form.style.display = (form.style.display === "") ? "block" : "none";
+  if (form.style.display === "none" || form.style.display === "") {
+    form.style.display = "block";   
+  } else {
+    form.style.display = "none";    
+  }
 }
-
 document.addEventListener("DOMContentLoaded", () => {
   const credentialsForm = document.getElementById("credentialsForm");
   if (credentialsForm) {
