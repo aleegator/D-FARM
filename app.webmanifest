@@ -3,12 +3,12 @@
   "name": "D'Farm Organic Clothing",
   "icons": [
     {
-      "src": "(image directory/url)",
+      "src": "/icon-images/DFARM LOGO 192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "(image directory/url)",
+      "src": "/icon-images/DFARM LOGO 512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
