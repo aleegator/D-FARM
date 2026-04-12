@@ -589,6 +589,11 @@
     };
 
     window.addReview = () => {
+      if (!auth.currentUser){
+        alert("Please login to leave a review.");
+        return;
+      }
+      
       const text = reviewText.value.trim();
       if (text) {
         const div = document.createElement("div");
